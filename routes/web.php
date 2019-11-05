@@ -15,18 +15,21 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-// $router->resource('/products', 'ProductController');
+$router->group(['prefix' => 'products'], function ($app) {
+    $app->get('/', 'ProductController@index');
+    $app->get('create', 'ProductController@create');
+    $app->post('store', 'ProductController@store');
+    $app->get('show/{id}', 'ProductController@show');
+    $app->get('edit/{id}', 'ProductController@edit');
+    $app->post('update/{id}', 'ProductController@update');
+    $app->post('destroy/{id}', 'ProductController@destroy');
+});
 
-$router->get('/products', 'ProductController@index');
-
-$router->get('/products/create', 'ProductController@create');
-
-$router->post('/products/store', 'ProductController@store');
-
-$router->get('/products/show/{id}', 'ProductController@show');
-
-$router->get('/products/edit/{id}', 'ProductController@edit');
-
-$router->post('/products/update/{id}', 'ProductController@update');
-
-$router->post('/products/destroy/{id}', 'ProductController@destroy');
+$router->group(['prefix' => 'api'], function () use ($router) {
+    // $router->get('registeraccount', 'AuthController@getRegisterForm');
+    $router->post('register', 'AuthController@register');
+    $router->post('login', 'AuthController@login');
+    // $router->get('profile', 'UserController@profile');
+    $router->get('users/{id}', 'UserController@singleUser');
+    $router->get('users', 'UserController@allUsers');
+});
