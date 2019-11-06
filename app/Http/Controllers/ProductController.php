@@ -15,9 +15,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id', 'desc')->paginate(10);
-  
-        return view('products.index',compact('products'));
+        $products = Product::orderBy('updated_at', 'desc')->paginate(10);
+
+        /* For normal app */
+        // return view('products.index',compact('products'));
+
+        /* For api */
+        return response()->json(['product' => $products], 201);
     }
    
     /**
@@ -27,7 +31,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        /* For normal app */
+        // return view('products.create');
     }
   
     /**
@@ -38,9 +43,24 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
+        /* For normal app */
+        // $product = Product::create($request->all());
    
-        return redirect('/products');
+        // return redirect('/products');
+
+        /* For api */
+        $this->validate($request, [
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
+
+        try {
+            $product = Product::create($request->all());
+
+            return response()->json(['products' => $product, 'message' => 'Created!'], 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Something went wrong!'], 409);
+        }
     }
    
     /**
@@ -53,7 +73,15 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         
-        return view('products.show',compact('product'));
+        /* For normal app */
+        // return view('products.show',compact('product'));
+
+        /* For api */
+        if ($product) {
+            return response()->json(['product' => $product], 201);
+        } else {
+            return response()->json(['message' => 'Item not found!'], 409);
+        }
     }
    
     /**
@@ -64,9 +92,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        /* For normal app */
+        // $product = Product::find($id);
 
-        return view('products.edit',compact('product'));
+        // return view('products.edit',compact('product'));
     }
   
     /**
@@ -78,10 +107,26 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
-        $product->update($request->all());
+        /* For normal app */
+        // $product = Product::find($id);
+        // $product->update($request->all());
   
-        return redirect('/products');
+        // return redirect('/products');
+
+        /* For api */
+        $this->validate($request, [
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
+
+        try {
+            $product = Product::find($id);
+            $product->update($request->all());
+
+            return response()->json(['product' => $product, 'message' => 'Updated!'], 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Something went wrong!'], 409);
+        }
     }
   
     /**
@@ -93,8 +138,19 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        $product->delete();
+
+        /* For normal app */
+        // $product->delete();
   
-        return redirect('/products');
+        // return redirect('/products');
+
+        /* For api */
+        if ($product) {
+            $product->delete();
+            
+            return response()->json(['message' => 'Item deleted!'], 201);
+        } else {
+            return response()->json(['message' => 'Item not found!'], 409);
+        }
     }
 }

@@ -15,21 +15,30 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'products'], function ($app) {
-    $app->get('/', 'ProductController@index');
-    $app->get('create', 'ProductController@create');
-    $app->post('store', 'ProductController@store');
-    $app->get('show/{id}', 'ProductController@show');
-    $app->get('edit/{id}', 'ProductController@edit');
-    $app->post('update/{id}', 'ProductController@update');
-    $app->post('destroy/{id}', 'ProductController@destroy');
-});
+/* For normal app */
+// $router->group(['prefix' => 'products'], function ($app) {
+//     $app->get('/', 'ProductController@index');
+//     $app->get('create', 'ProductController@create');
+//     $app->post('store', 'ProductController@store');
+//     $app->get('show/{id}', 'ProductController@show');
+//     $app->get('edit/{id}', 'ProductController@edit');
+//     $app->post('update/{id}', 'ProductController@update');
+//     $app->post('destroy/{id}', 'ProductController@destroy');
+// });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    // $router->get('registeraccount', 'AuthController@getRegisterForm');
+    /* Auth */
     $router->post('register', 'AuthController@register');
     $router->post('login', 'AuthController@login');
     // $router->get('profile', 'UserController@profile');
     $router->get('users/{id}', 'UserController@singleUser');
     $router->get('users', 'UserController@allUsers');
+
+
+    /* Products */
+    $router->get('/products', 'ProductController@index');
+    $router->post('/products/store', 'ProductController@store');
+    $router->get('/products/show/{id}', 'ProductController@show');
+    $router->patch('/products/update/{id}', 'ProductController@update');
+    $router->delete('/products/destroy/{id}', 'ProductController@destroy');
 });
