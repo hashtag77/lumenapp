@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UnitTestingController extends Controller
 {
-    public function testUserCreation(Request $request)
+    /* User */
+    public function testShouldCreateUser(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|string',
@@ -31,7 +32,7 @@ class UnitTestingController extends Controller
         }
     }
 
-    public function testUserLogin(Request $request)
+    public function testShouldLoginUser(Request $request)
     {
         $this->validate($request, [
             'email' => 'required|string',
@@ -47,7 +48,7 @@ class UnitTestingController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function testUserProfile()
+    public function testShouldFetchUserProfile()
     {
         $user = Auth::user();
         if($user) {
@@ -57,17 +58,7 @@ class UnitTestingController extends Controller
         }
     }
 
-    public function testUserAll()
-    {
-        $user = User::all();
-        if($user) {
-            return response()->json(['message' =>  'Fetched!'], 200);
-        } else {
-            return response()->json(['message' =>  'Something went wrong!'], 200);
-        }
-    }
-
-    public function testUserData($id)
+    public function testShouldFetchUserData($id)
     {
         try {
             $user = User::findOrFail($id);
@@ -78,7 +69,18 @@ class UnitTestingController extends Controller
         }
     }
 
-    public function testAllProduct()
+    public function testShouldFetchUsers()
+    {
+        $user = User::all();
+        if($user) {
+            return response()->json(['message' =>  'Fetched!'], 200);
+        } else {
+            return response()->json(['message' =>  'Something went wrong!'], 200);
+        }
+    }
+
+    /* Product */
+    public function testShouldFetchAllProducts()
     {
         $products = Product::orderBy('updated_at', 'desc')->paginate(10);
 
@@ -89,7 +91,7 @@ class UnitTestingController extends Controller
         }
     }
   
-    public function testCreateProduct(Request $request)
+    public function testShouldCreateProduct(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -105,7 +107,7 @@ class UnitTestingController extends Controller
         }
     }
 
-    public function testShowProduct($id)
+    public function testShouldShowProduct($id)
     {
         $product = Product::find($id);
         
@@ -116,7 +118,7 @@ class UnitTestingController extends Controller
         }
     }
   
-    public function testUpdateProduct(Request $request, $id)
+    public function testShouldUpdateProduct(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -137,7 +139,7 @@ class UnitTestingController extends Controller
         }
     }
   
-    public function testDeleteProduct($id)
+    public function testShouldDeleteProduct($id)
     {
         $product = Product::find($id);
 

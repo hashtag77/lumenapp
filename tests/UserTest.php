@@ -12,7 +12,7 @@ class UserTest extends TestCase
       return factory('App\User')->create();
     }
 
-    public function testUserCreation()
+    public function testShouldCreateUser()
     {
       $response = $this->post('/testing/register', [
           'name'                  => 'Sally',
@@ -26,7 +26,7 @@ class UserTest extends TestCase
       ]);
     }
 
-    public function testUserLogin()
+    public function testShouldLoginUser()
     {
       $this->post('/testing/login', [
             'email'                 => 'user@test.com',
@@ -39,7 +39,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testUserProfile()
+    public function testShouldFetchUserProfile()
     {
       $user = $this->createUser();
 
@@ -50,7 +50,7 @@ class UserTest extends TestCase
             ]);
     }
 
-    public function testUserData()
+    public function testShouldFetchUserData()
     {
       $user = $this->createUser();
       
@@ -61,7 +61,7 @@ class UserTest extends TestCase
             ]);
     }
 
-    public function testUserAll()
+    public function testShouldFetchUsers()
     {
       $user = $this->createUser();
       

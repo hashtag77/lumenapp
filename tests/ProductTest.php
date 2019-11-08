@@ -16,7 +16,7 @@ class ProductTest extends TestCase
       ]);
     }
     
-    public function testAllProduct()
+    public function testShouldFetchAllProducts()
     {
       $response = $this->get('/testing/products');
 
@@ -25,7 +25,7 @@ class ProductTest extends TestCase
       ]);
     }
 
-    public function testCreateProduct()
+    public function testShouldCreateProduct()
     {
       $response = $this->post('/testing/products/store', [
           'name'  => 'Dummy Product',
@@ -37,7 +37,7 @@ class ProductTest extends TestCase
       ]);
     }
 
-    public function testShowProduct()
+    public function testShouldShowProduct()
     {
       $response = $this->createProduct();
 
@@ -47,7 +47,7 @@ class ProductTest extends TestCase
             ]);
     }
 
-    public function testUpdateProduct()
+    public function testShouldUpdateProduct()
     {
       $response = $this->createProduct();
 
@@ -61,7 +61,7 @@ class ProductTest extends TestCase
       ]);
     }
 
-    public function testDeleteProduct()
+    public function testShouldDeleteProduct()
     {
       $response = $this->createProduct();
 
