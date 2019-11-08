@@ -8,12 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-
-    // public function getRegisterForm()
-    // {
-    //   return view('auth.register');
-    // }
-
     /**
      * Store a new user.
      *
@@ -34,9 +28,9 @@ class AuthController extends Controller
             $user->email = $request->input('email');
             $plainPassword = $request->input('password');
             $user->password = app('hash')->make($plainPassword);
-
             $user->save();
-            return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
+
+            return response()->json(['user' => $user, 'message' => 'Created!'], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => 'User Registration Failed!'], 409);
         }

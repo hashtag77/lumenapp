@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Support\Facades\Auth;
-use  App\User;
 
 class UserController extends Controller
 {
@@ -22,10 +22,10 @@ class UserController extends Controller
      *
      * @return Response
      */
-    // public function profile()
-    // {
-    //     return response()->json(['user' => Auth::user()], 201);
-    // }
+    public function profile()
+    {
+        return response()->json(['user' => Auth::user()], 201);
+    }
 
     /**
      * Get all User.
@@ -46,9 +46,10 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
+            
             return response()->json(['user' => $user], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'user not found!'], 404);
+            return response()->json(['message' => 'User not found!'], 404);
         }
     }
 }
