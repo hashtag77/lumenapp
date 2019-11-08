@@ -26,6 +26,7 @@ $router->get('/', function () use ($router) {
 //     $app->post('destroy/{id}', 'ProductController@destroy');
 // });
 
+/* For Api */
 $router->group(['prefix' => 'api'], function () use ($router) {
     /* Auth */
     $router->post('register', 'AuthController@register');
