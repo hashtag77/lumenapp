@@ -47,18 +47,18 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
 /* Testing Routes */
 $router->group(['prefix' => 'testing'], function () use ($router) {
-    $router->post('register', 'UnitTestingController@testShouldCreateUser');
-    $router->post('login', 'UnitTestingController@testShouldLoginUser');
-    $router->get('profile', 'UnitTestingController@testShouldFetchUserProfile');
-    $router->get('users/{id}', 'UnitTestingController@testShouldFetchUserData');
-    $router->get('users', 'UnitTestingController@testShouldFetchUsers');
+    $router->post('register', 'UnitTestingController@shouldCreateUser');
+    $router->post('login', 'UnitTestingController@shouldLoginUser');
+    $router->get('profile', 'UnitTestingController@shouldFetchUserProfile');
+    $router->get('users/{id}', 'UnitTestingController@shouldFetchUserData');
+    $router->get('users', 'UnitTestingController@shouldFetchUsers');
 
     /* Products */
     $router->group(['prefix' => 'products'], function () use ($router) {
-        $router->get('/', 'UnitTestingController@testShouldFetchAllProducts');
-        $router->post('store', 'UnitTestingController@testShouldCreateProduct');
-        $router->get('show/{id}', 'UnitTestingController@testShouldShowProduct');
-        $router->patch('update/{id}', 'UnitTestingController@testShouldUpdateProduct');
-        $router->delete('destroy/{id}', 'UnitTestingController@testShouldDeleteProduct');
+        $router->get('/', 'UnitTestingController@shouldFetchAllProducts');
+        $router->post('store', 'UnitTestingController@shouldCreateProduct');
+        $router->get('show/{id}', 'UnitTestingController@shouldShowProduct');
+        $router->patch('update/{id}', 'UnitTestingController@shouldUpdateProduct');
+        $router->delete('destroy/{id}', 'UnitTestingController@shouldDeleteProduct');
     });
 });

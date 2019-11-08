@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class UnitTestingController extends Controller
 {
     /* User */
-    public function testShouldCreateUser(Request $request)
+    public function shouldCreateUser(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|string',
@@ -32,7 +32,7 @@ class UnitTestingController extends Controller
         }
     }
 
-    public function testShouldLoginUser(Request $request)
+    public function shouldLoginUser(Request $request)
     {
         $this->validate($request, [
             'email' => 'required|string',
@@ -48,7 +48,7 @@ class UnitTestingController extends Controller
         return $this->respondWithToken($token);
     }
 
-    public function testShouldFetchUserProfile()
+    public function shouldFetchUserProfile()
     {
         $user = Auth::user();
         if($user) {
@@ -58,7 +58,7 @@ class UnitTestingController extends Controller
         }
     }
 
-    public function testShouldFetchUserData($id)
+    public function shouldFetchUserData($id)
     {
         try {
             $user = User::findOrFail($id);
@@ -69,7 +69,7 @@ class UnitTestingController extends Controller
         }
     }
 
-    public function testShouldFetchUsers()
+    public function shouldFetchUsers()
     {
         $user = User::all();
         if($user) {
@@ -80,7 +80,7 @@ class UnitTestingController extends Controller
     }
 
     /* Product */
-    public function testShouldFetchAllProducts()
+    public function shouldFetchAllProducts()
     {
         $products = Product::orderBy('updated_at', 'desc')->paginate(10);
 
@@ -91,7 +91,7 @@ class UnitTestingController extends Controller
         }
     }
   
-    public function testShouldCreateProduct(Request $request)
+    public function shouldCreateProduct(Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -107,7 +107,7 @@ class UnitTestingController extends Controller
         }
     }
 
-    public function testShouldShowProduct($id)
+    public function shouldShowProduct($id)
     {
         $product = Product::find($id);
         
@@ -118,7 +118,7 @@ class UnitTestingController extends Controller
         }
     }
   
-    public function testShouldUpdateProduct(Request $request, $id)
+    public function shouldUpdateProduct(Request $request, $id)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -139,7 +139,7 @@ class UnitTestingController extends Controller
         }
     }
   
-    public function testShouldDeleteProduct($id)
+    public function shouldDeleteProduct($id)
     {
         $product = Product::find($id);
 
